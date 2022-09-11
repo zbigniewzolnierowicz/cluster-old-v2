@@ -54,7 +54,7 @@ resource "proxmox_vm_qemu" "kube-0-homelab-local" {
     model = "virtio"
     bridge = "vmbr0"
   }
-  
+
   sshkeys = file(pathexpand(var.ssh_path))
 
   ipconfig0 = "ip=192.168.1.40/24,gw=192.168.1.1,ip6=dhcp"
@@ -94,9 +94,8 @@ resource "proxmox_vm_qemu" "kube-1-homelab-local" {
     model = "virtio"
     bridge = "vmbr0"
   }
-  
+
   sshkeys = file(pathexpand(var.ssh_path))
   ipconfig0 = "ip=192.168.1.41/24,gw=192.168.1.1,ip6=dhcp"
   ciuser = "admin"
 }
-
