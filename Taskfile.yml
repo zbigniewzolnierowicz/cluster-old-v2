@@ -21,6 +21,7 @@ includes:
   sops: .taskfiles/SopsTasks.yml
 
 tasks:
+
   init:
     desc: Initialize workstation dependencies with Brew
     cmds:
