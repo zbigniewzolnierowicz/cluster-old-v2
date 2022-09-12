@@ -23,7 +23,7 @@ provider "proxmox" {
 resource "proxmox_vm_qemu" "kube-0-homelab-local" {
   name = "kube-0.homelab.local"
   target_node = "asterix"
-  clone = "fedora-template.homelab.local"
+  clone = "rocky-template-asterix.homelab.local"
   full_clone = true
   agent = 1
   os_type = "cloud-init"
@@ -64,7 +64,7 @@ resource "proxmox_vm_qemu" "kube-0-homelab-local" {
 resource "proxmox_vm_qemu" "kube-1-homelab-local" {
   name = "kube-1.homelab.local"
   target_node = "thinkcentre"
-  clone = "fedora-template-thinkcentre.homelab.local"
+  clone = "rocky-template-thinkcentre.homelab.local"
   full_clone = true
   agent = 1
   os_type = "cloud-init"

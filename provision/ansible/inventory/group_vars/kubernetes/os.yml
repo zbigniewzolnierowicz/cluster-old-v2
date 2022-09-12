@@ -12,6 +12,8 @@ packages:
   - dnf-automatic
   - dnf-utils
   - hdparm
+  - htop
+  - intel-gpu-tools
   - ipvsadm
   - lm_sensors
   - nano
