@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     proxmox = {
-      source = "Telmate/proxmox"
+      source  = "Telmate/proxmox"
       version = "2.9.11"
     }
   }
@@ -12,7 +12,7 @@ variable "proxmox_api_url" {
 }
 
 variable "ssh_path" {
-  type = string
+  type    = string
   default = "~/.ssh/id_ed25519.pub"
 }
 
@@ -21,81 +21,81 @@ provider "proxmox" {
 }
 
 resource "proxmox_vm_qemu" "kube-0-homelab-local" {
-  name = "kube-0.homelab.local"
+  name        = "kube-0.homelab.local"
   target_node = "asterix"
-  clone = "rocky-template-asterix.homelab.local"
-  full_clone = true
-  agent = 1
-  os_type = "cloud-init"
-  cores = 4
-  sockets = 1
-  cpu = "host"
-  memory = 4096
-  scsihw = "virtio-scsi-pci"
+  clone       = "rocky-template-asterix.homelab.local"
+  full_clone  = true
+  agent       = 1
+  os_type     = "cloud-init"
+  cores       = 4
+  sockets     = 1
+  cpu         = "host"
+  memory      = 4096
+  scsihw      = "virtio-scsi-pci"
 
   disk {
-    size = "10G"
-    type = "scsi"
+    size    = "10G"
+    type    = "scsi"
     storage = "data-nvme"
-    slot = "0"
-    format = "raw"
+    slot    = "0"
+    format  = "raw"
   }
 
   disk {
-    size = "32G"
-    type = "scsi"
+    size    = "32G"
+    type    = "scsi"
     storage = "data-nvme"
-    slot = "1"
-    format = "raw"
+    slot    = "1"
+    format  = "raw"
   }
 
   # Setup the network interface and assign a vlan tag: 256
   network {
-    model = "virtio"
+    model  = "virtio"
     bridge = "vmbr0"
   }
 
   sshkeys = file(pathexpand(var.ssh_path))
 
   ipconfig0 = "ip=192.168.1.40/24,gw=192.168.1.1,ip6=dhcp"
-  ciuser = "admin"
+  ciuser    = "admin"
 }
 
 resource "proxmox_vm_qemu" "kube-1-homelab-local" {
-  name = "kube-1.homelab.local"
+  name        = "kube-1.homelab.local"
   target_node = "thinkcentre"
-  clone = "rocky-template-thinkcentre.homelab.local"
-  full_clone = true
-  agent = 1
-  os_type = "cloud-init"
-  cores = 4
-  sockets = 1
-  cpu = "host"
-  memory = 4096
-  scsihw = "virtio-scsi-pci"
+  clone       = "rocky-template-thinkcentre.homelab.local"
+  full_clone  = true
+  agent       = 1
+  os_type     = "cloud-init"
+  cores       = 4
+  sockets     = 1
+  cpu         = "host"
+  memory      = 4096
+  scsihw      = "virtio-scsi-pci"
 
   disk {
-    size = "10G"
-    type = "scsi"
+    size    = "10G"
+    type    = "scsi"
     storage = "local-lvm"
-    slot = "0"
-    format = "raw"
+    slot    = "0"
+    format  = "raw"
   }
 
   disk {
-    size = "32G"
-    type = "scsi"
+    size    = "32G"
+    type    = "scsi"
     storage = "local-lvm"
-    slot = "1"
-    format = "raw"
+    slot    = "1"
+    format  = "raw"
   }
 
   network {
-    model = "virtio"
+    model  = "virtio"
     bridge = "vmbr0"
   }
 
-  sshkeys = file(pathexpand(var.ssh_path))
+  sshkeys   = file(pathexpand(var.ssh_path))
   ipconfig0 = "ip=192.168.1.41/24,gw=192.168.1.1,ip6=dhcp"
-  ciuser = "admin"
+  ciuser    = "admin"
 }
