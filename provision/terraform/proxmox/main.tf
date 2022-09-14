@@ -30,7 +30,7 @@ resource "proxmox_vm_qemu" "kube-0-homelab-local" {
   cores       = 4
   sockets     = 1
   cpu         = "host"
-  memory      = 4096
+  memory      = 8192
   scsihw      = "virtio-scsi-pci"
 
   disk {
@@ -63,6 +63,47 @@ resource "proxmox_vm_qemu" "kube-0-homelab-local" {
 
 resource "proxmox_vm_qemu" "kube-1-homelab-local" {
   name        = "kube-1.homelab.local"
+  target_node = "asterix"
+  clone       = "rocky-template-asterix.homelab.local"
+  full_clone  = true
+  agent       = 1
+  os_type     = "cloud-init"
+  cores       = 4
+  sockets     = 1
+  cpu         = "host"
+  memory      = 6144
+  scsihw      = "virtio-scsi-pci"
+
+  disk {
+    size    = "10G"
+    type    = "scsi"
+    storage = "data-nvme"
+    slot    = "0"
+    format  = "raw"
+  }
+
+  disk {
+    size    = "32G"
+    type    = "scsi"
+    storage = "data-nvme"
+    slot    = "1"
+    format  = "raw"
+  }
+
+  # Setup the network interface and assign a vlan tag: 256
+  network {
+    model  = "virtio"
+    bridge = "vmbr0"
+  }
+
+  sshkeys = file(pathexpand(var.ssh_path))
+
+  ipconfig0 = "ip=192.168.1.41/24,gw=192.168.1.1,ip6=dhcp"
+  ciuser    = "admin"
+}
+
+resource "proxmox_vm_qemu" "kube-2-homelab-local" {
+  name        = "kube-2.homelab.local"
   target_node = "thinkcentre"
   clone       = "rocky-template-thinkcentre.homelab.local"
   full_clone  = true
@@ -71,7 +112,7 @@ resource "proxmox_vm_qemu" "kube-1-homelab-local" {
   cores       = 4
   sockets     = 1
   cpu         = "host"
-  memory      = 4096
+  memory      = 8192
   scsihw      = "virtio-scsi-pci"
 
   disk {
@@ -96,6 +137,6 @@ resource "proxmox_vm_qemu" "kube-1-homelab-local" {
   }
 
   sshkeys   = file(pathexpand(var.ssh_path))
-  ipconfig0 = "ip=192.168.1.41/24,gw=192.168.1.1,ip6=dhcp"
+  ipconfig0 = "ip=192.168.1.42/24,gw=192.168.1.1,ip6=dhcp"
   ciuser    = "admin"
 }
