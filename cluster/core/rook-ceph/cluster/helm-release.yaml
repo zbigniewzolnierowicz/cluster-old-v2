@@ -48,7 +48,7 @@ spec:
         disable: false
       mon:
         count: 3
-        allowMultiplePerNode: true
+        allowMultiplePerNode: false
       mgr:
         count: 2
         allowMultiplePerNode: true
@@ -69,6 +69,9 @@ spec:
             devices:
               - name: "/dev/sdb"
           - name: kube-1.homelab.local
+            devices:
+              - name: "/dev/sdb"
+          - name: kube-2.homelab.local
             devices:
               - name: "/dev/sdb"
     # cephBlockPoolsVolumeSnapshotClass:
