@@ -1,0 +1,84 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: plex
+  namespace: media
+spec:
+  chart:
+    spec:
+      chart: app-template
+      version: 0.2.1
+      interval: 15m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  interval: 15m
+  values:
+    image:
+      repository: ghcr.io/onedr0p/plex
+      tag: 1.28.2.6151-914ddd2b3@sha256:0b1c10bda8403bb984eb8ae77ec19dd5abdaacc57e2ec42be4316f9dafec6977
+    service:
+      main:
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        loadBalancerIP: "${SVC_PLEX_ADDR}"
+        ports:
+          http:
+            port: 32400
+    ingress:
+      main:
+        enabled: true
+        annotations:
+          external-dns.alpha.kubernetes.io/target: ipv4.${SECRET_DOMAIN}
+          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            location = / {
+              if ($http_x_plex_device = ""){
+                return 301 $scheme://$host/web/index.html;
+              }
+            }
+        ingressClassName: nginx
+        hosts:
+          - host: &host plex.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+            secretName: plex-tls
+
+    persistence:
+      config:
+        enabled: true
+        existingClaim: plex-config
+      media:
+        enabled: true
+        mountPath: /storage/media
+        path: ${NAS_BASE_URL}/media
+        server: ${SECRET_NAS_ADDR}
+        type: nfs
+      transcode:
+        enabled: true
+        type: emptyDir
+
+    podSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+      fsGroupChangePolicy: "OnRootMismatch"
+      supplementalGroups:
+        - 44
+        - 109
+        - 65539
+
+    resources:
+      requests:
+        cpu: 100m
+        gpu.intel.com/i915: 1
+        memory: 3G
+      limits:
+        gpu.intel.com/i915: 1
+        memory: 4G
