@@ -42,7 +42,7 @@ resource "proxmox_vm_qemu" "kube-0-homelab-local" {
   }
 
   disk {
-    size    = "32G"
+    size    = "64G"
     type    = "scsi"
     storage = "data-nvme"
     slot    = "1"
@@ -83,7 +83,7 @@ resource "proxmox_vm_qemu" "kube-1-homelab-local" {
   }
 
   disk {
-    size    = "32G"
+    size    = "64G"
     type    = "scsi"
     storage = "data-nvme"
     slot    = "1"
@@ -124,7 +124,7 @@ resource "proxmox_vm_qemu" "kube-2-homelab-local" {
   }
 
   disk {
-    size    = "32G"
+    size    = "64G"
     type    = "scsi"
     storage = "local-lvm"
     slot    = "1"
