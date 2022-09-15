@@ -30,7 +30,7 @@ resource "proxmox_vm_qemu" "kube-0-homelab-local" {
   cores       = 4
   sockets     = 1
   cpu         = "host"
-  memory      = 8192
+  memory      = 12288
   scsihw      = "virtio-scsi-pci"
 
   disk {
@@ -71,7 +71,7 @@ resource "proxmox_vm_qemu" "kube-1-homelab-local" {
   cores       = 4
   sockets     = 1
   cpu         = "host"
-  memory      = 6144
+  memory      = 8192
   scsihw      = "virtio-scsi-pci"
 
   disk {
@@ -112,7 +112,7 @@ resource "proxmox_vm_qemu" "kube-2-homelab-local" {
   cores       = 4
   sockets     = 1
   cpu         = "host"
-  memory      = 8192
+  memory      = 12288
   scsihw      = "virtio-scsi-pci"
 
   disk {
