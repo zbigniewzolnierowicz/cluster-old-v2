@@ -26,7 +26,7 @@ spec:
       namespace: rook-ceph
   values:
     monitoring:
-      enabled: true
+      enabled: false
       createPrometheusRules: false
     ingress:
       dashboard:
@@ -52,6 +52,9 @@ spec:
       mgr:
         count: 2
         allowMultiplePerNode: false
+        modules:
+          - name: pg_autoscaler
+            enabled: true
       dashboard:
         enabled: true
         urlPrefix: /
@@ -64,13 +67,13 @@ spec:
         nodes:
           - name: kube-0.homelab.local
             devices:
-              - name: "/dev/sdb"
+              - name: "sdb"
           - name: kube-1.homelab.local
             devices:
-              - name: "/dev/sdb"
+              - name: "sdb"
           - name: kube-2.homelab.local
             devices:
-              - name: "/dev/sdb"
+              - name: "sdb"
     # cephBlockPoolsVolumeSnapshotClass:
     #   enabled: true
     #   name: csi-rbdplugin-snapclass
