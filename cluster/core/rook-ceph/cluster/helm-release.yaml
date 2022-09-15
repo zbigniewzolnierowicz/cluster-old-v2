@@ -51,10 +51,7 @@ spec:
         allowMultiplePerNode: false
       mgr:
         count: 2
-        allowMultiplePerNode: true
-        modules:
-          - name: pg_autoscaler
-            enabled: true
+        allowMultiplePerNode: false
       dashboard:
         enabled: true
         urlPrefix: /
