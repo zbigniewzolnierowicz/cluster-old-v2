@@ -5,4 +5,4 @@ resources:
   - cluster-issuers
   - intel
   # - longhorn
-  - rook-ceph
+  # - rook-ceph

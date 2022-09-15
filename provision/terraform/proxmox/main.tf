@@ -34,20 +34,20 @@ resource "proxmox_vm_qemu" "kube-0-homelab-local" {
   scsihw      = "virtio-scsi-pci"
 
   disk {
-    size    = "10G"
+    size    = "74G"
     type    = "scsi"
     storage = "data-nvme"
     slot    = "0"
     format  = "raw"
   }
 
-  disk {
-    size    = "64G"
-    type    = "scsi"
-    storage = "data-nvme"
-    slot    = "1"
-    format  = "raw"
-  }
+  # disk {
+  #   size    = "64G"
+  #   type    = "scsi"
+  #   storage = "data-nvme"
+  #   slot    = "1"
+  #   format  = "raw"
+  # }
 
   # Setup the network interface and assign a vlan tag: 256
   network {
@@ -75,20 +75,20 @@ resource "proxmox_vm_qemu" "kube-1-homelab-local" {
   scsihw      = "virtio-scsi-pci"
 
   disk {
-    size    = "10G"
+    size    = "74G"
     type    = "scsi"
     storage = "data-nvme"
     slot    = "0"
     format  = "raw"
   }
 
-  disk {
-    size    = "64G"
-    type    = "scsi"
-    storage = "data-nvme"
-    slot    = "1"
-    format  = "raw"
-  }
+  # disk {
+  #   size    = "64G"
+  #   type    = "scsi"
+  #   storage = "data-nvme"
+  #   slot    = "1"
+  #   format  = "raw"
+  # }
 
   # Setup the network interface and assign a vlan tag: 256
   network {
@@ -116,20 +116,20 @@ resource "proxmox_vm_qemu" "kube-2-homelab-local" {
   scsihw      = "virtio-scsi-pci"
 
   disk {
-    size    = "10G"
+    size    = "74G"
     type    = "scsi"
     storage = "local-lvm"
     slot    = "0"
     format  = "raw"
   }
 
-  disk {
-    size    = "64G"
-    type    = "scsi"
-    storage = "local-lvm"
-    slot    = "1"
-    format  = "raw"
-  }
+  # disk {
+  #   size    = "64G"
+  #   type    = "scsi"
+  #   storage = "local-lvm"
+  #   slot    = "1"
+  #   format  = "raw"
+  # }
 
   network {
     model  = "virtio"
