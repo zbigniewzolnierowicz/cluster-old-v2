@@ -22,6 +22,7 @@ spec:
     defaultSettings:
       defaultReplicaCount: 2
       defaultLonghornStaticStorageClass: longhorn
+      defaultDataPath: /longhorn/sdb1
     ingress:
       enabled: true
       host: "longhorn.${SECRET_DOMAIN}"

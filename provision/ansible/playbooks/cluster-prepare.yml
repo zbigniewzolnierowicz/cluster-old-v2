@@ -69,6 +69,27 @@
           ansible.builtin.systemd:
             service: fstrim.timer
             enabled: true
+        - name: System Configuration (1) | Create a new ext4 primary partition
+          community.general.parted:
+            device: /dev/sdb
+            number: 1
+            state: present
+            fs_type: ext4
+        - name: System Configuration (1) | Format Longhorn partition
+          community.general.filesystem:
+            state: present
+            dev: /dev/sdb1
+            fstype: ext4
+        - name: System Configuration (1) | Create mountpoint for Longhorn volume
+          ansible.builtin.file:
+            path: /longhorn/sdb1
+            state: directory
+        - name: System Configuration (1) | Mount Longhorn volume
+          ansible.posix.mount:
+            path: /longhorn/sdb1
+            src: /dev/sdb1
+            state: mounted
+            fstype: ext4
     - name: System Configuration (2)
       block:
         - name: System Configuration (2) | Enable kernel modules now
