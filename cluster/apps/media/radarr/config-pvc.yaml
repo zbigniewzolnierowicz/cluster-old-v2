@@ -4,12 +4,12 @@ kind: PersistentVolumeClaim
 metadata:
   labels:
     snapshot.home.arpa/enabled: "true"
-  name: plex-config
+  name: radarr-config
   namespace: media
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 20Gi
+      storage: 5Gi
   storageClassName: longhorn
