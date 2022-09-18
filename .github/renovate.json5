@@ -99,6 +99,10 @@
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["patch"],
       "labels": ["renovate/helm", "dep/patch"]
+    },
+    {
+      "matchUpdateTypes": ["patch"],
+      automerge: true
     }
   ]
 }
