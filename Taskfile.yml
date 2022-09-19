@@ -19,9 +19,9 @@ includes:
   precommit: .taskfiles/PrecommitTasks.yml
   terraform: .taskfiles/TerraformTasks.yml
   sops: .taskfiles/SopsTasks.yml
+  proxmox: .taskfiles/ProxmoxTasks.yml
 
 tasks:
-
   init:
     desc: Initialize workstation dependencies with Brew
     cmds:
