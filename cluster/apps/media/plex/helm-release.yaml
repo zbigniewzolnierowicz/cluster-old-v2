@@ -36,13 +36,13 @@ spec:
           external-dns/is-public: "true"
           hajimari.io/enable: "true"
           hajimari.io/icon: "plex"
-          # nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-          # nginx.ingress.kubernetes.io/configuration-snippet: |
-          #   location = / {
-          #     if ($http_x_plex_device = ""){
-          #       return 301 $scheme://$host/web/index.html;
-          #     }
-          #   }
+          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            location = / {
+              if ($http_x_plex_device = ""){
+                return 301 $scheme://$host/web/index.html;
+              }
+            }
         ingressClassName: nginx
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
