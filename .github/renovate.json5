@@ -26,9 +26,7 @@
       "description": "Process CRD dependencies",
       "fileMatch": ["cluster/crds/.+\\.ya?ml$"],
       "matchStrings": [
-        // GitRepository and Flux Kustomization where 'Git release/tag' matches 'Helm' version
         "registryUrl=(?<registryUrl>\\S+) chart=(?<depName>\\S+)\n.*?(?<currentValue>[^-\\s]*)\n",
-        // Kustomization where 'GitHub release artifact URL' matches 'Docker image' version
         "datasource=(?<datasource>\\S+) image=(?<depName>\\S+)\n.*?-\\s(.*?)\/(?<currentValue>[^/]+)\/[^/]+\n"
       ],
       "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}helm{{/if}}"
@@ -47,13 +45,17 @@
     }
   ],
   "packageRules": [
-    // setup datasources
+    {
+      "description": "Disable kubernetes-api",
+      "matchManagers": ["kubernetes"],
+      "matchDatasources": ["kubernetes-api"],
+      "enabled": false
+    },
     {
       "matchDatasources": ["helm"],
       "separateMinorPatch": true,
       "ignoreDeprecated": true
     },
-    // global docker datasource settings
     {
       "matchDatasources": ["docker"],
       "enabled": true,
@@ -69,7 +71,6 @@
       "group": { "commitMessageTopic": "{{{groupName}}} group" },
       "separateMinorPatch": true
     },
-    // add labels according to package and update types
     {
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["major"],
@@ -78,12 +79,14 @@
     {
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["minor"],
-      "labels": ["renovate/image", "dep/minor"]
+      "labels": ["renovate/image", "dep/minor"],
+      "automerge": true
     },
     {
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["patch"],
-      "labels": ["renovate/image", "dep/patch"]
+      "labels": ["renovate/image", "dep/patch"],
+      "automerge": true
     },
     {
       "matchDatasources": ["helm"],
@@ -93,16 +96,14 @@
     {
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["minor"],
-      "labels": ["renovate/helm", "dep/minor"]
+      "labels": ["renovate/helm", "dep/minor"],
+      "automerge": true
     },
     {
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["patch"],
-      "labels": ["renovate/helm", "dep/patch"]
-    },
-    {
-      "matchUpdateTypes": ["patch"],
-      automerge: true
+      "labels": ["renovate/helm", "dep/patch"],
+      "automerge": true
     }
   ]
 }
