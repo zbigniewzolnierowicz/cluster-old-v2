@@ -15,3 +15,6 @@ resources:
   - weaveworks-kured.yaml
   - rook.yaml
   - longhorn.yaml
+  - democratic-csi.yaml
+  - cnpg.yaml
+  - openebs.yaml

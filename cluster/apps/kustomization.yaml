@@ -8,3 +8,5 @@ resources:
   - networking
   - system-upgrade
   - media
+  - databases
+  - auth

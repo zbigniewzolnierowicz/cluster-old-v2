@@ -49,13 +49,13 @@ resource "cloudflare_zone_settings_override" "cloudflare_settings" {
     privacy_pass   = "on"
     security_level = "medium"
     # /speed/optimization
-    brotli = "on"
+    brotli = "off"
     minify {
-      css  = "on"
-      js   = "on"
-      html = "on"
+      css  = "off"
+      js   = "off"
+      html = "off"
     }
-    rocket_loader = "on"
+    rocket_loader = "off"
     # /caching/configuration
     always_online    = "off"
     development_mode = "off"
