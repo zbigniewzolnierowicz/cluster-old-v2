@@ -7,6 +7,6 @@ resources:
   - kube-system
   - networking
   - system-upgrade
-  - media
-  - databases
-  - auth
+  # - media
+  # - databases
+  # - auth
