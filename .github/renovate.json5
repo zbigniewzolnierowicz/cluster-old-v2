@@ -104,6 +104,11 @@
       "matchUpdateTypes": ["patch"],
       "labels": ["renovate/helm", "dep/patch"],
       "automerge": true
+    },
+    {
+      "matchDatasources": ["github-releases"],
+      "matchUpdateTypes": ["major", "minor"],
+      "automerge": false
     }
   ]
 }
