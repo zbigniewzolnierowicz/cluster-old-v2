@@ -31,6 +31,7 @@ spec:
       SONARR__PORT: &port 80
       SONARR__APPLICATION_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
       SONARR__LOG_LEVEL: info
+      SONARR__API_KEY: ${SECRET_SONARR_API_KEY}
     service:
       main:
         ports:
