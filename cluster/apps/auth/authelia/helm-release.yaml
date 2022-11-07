@@ -34,7 +34,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: ghcr.io/authelia/authelia
-      tag: 4.36.6
+      tag: 4.37.2
     env:
       AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDITIONAL_USERS_DN: ou=users
       AUTHELIA_AUTHENTICATION_BACKEND_LDAP_BASE_DN: dc=homelab,dc=local
