@@ -40,7 +40,7 @@ spec:
           external-dns/is-public: "true"
           hajimari.io/enable: "true"
         hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: &host "uptime.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
@@ -48,13 +48,6 @@ spec:
           - hosts:
               - *host
             secretName: "{{ .Release.Name }}-tls"
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 100
     persistence:
       config:
         enabled: true
