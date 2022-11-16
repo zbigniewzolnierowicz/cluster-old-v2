@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - notifications-url.sops.yaml
   - discord-provider.yaml
-  - notifications.yaml
+  # - notifications.yaml
