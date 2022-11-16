@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: discord-url
+  namespace: flux-system
+stringData:
+  address: ${BOOTSTRAP_NOTIFICATION_WEBHOOK}
