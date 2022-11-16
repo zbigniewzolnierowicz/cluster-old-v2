@@ -35,6 +35,29 @@ spec:
     image:
       repository: ghcr.io/authelia/authelia
       tag: 4.37.2
+    initContainers:
+      init-db:
+        image: ghcr.io/onedr0p/postgres-initdb:14.5
+        env:
+          - name: POSTGRES_HOST
+            value: postgres-rw.default.svc.cluster.local
+          - name: POSTGRES_DB
+            value: authelia
+          - name: POSTGRES_SUPER_PASS
+            valueFrom:
+              secretKeyRef:
+                name: postgres-superuser
+                key: password
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: authelia
+                key: AUTHELIA_STORAGE_POSTGRES_USERNAME
+          - name: POSTGRES_PASS
+            valueFrom:
+              secretKeyRef:
+                name: authelia
+                key: AUTHELIA_STORAGE_POSTGRES_PASSWORD
     env:
       AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDITIONAL_USERS_DN: ou=users
       AUTHELIA_AUTHENTICATION_BACKEND_LDAP_BASE_DN: dc=homelab,dc=local
