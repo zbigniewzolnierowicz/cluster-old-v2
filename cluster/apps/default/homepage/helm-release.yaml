@@ -27,7 +27,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: ghcr.io/zbigniewzolnierowicz/homepage
-      tag: "202210061953"
+      tag: "202212161546"
     service:
       main:
         ports:
