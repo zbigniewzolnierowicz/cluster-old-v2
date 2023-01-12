@@ -1,0 +1,105 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pterodactyl
+  namespace: games
+spec:
+  selector:
+    matchLabels:
+      app: pterodactyl
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: pterodactyl
+    spec:
+      containers:
+        - name: pterodactyl
+          image: ghcr.io/pterodactyl/panel:latest
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "300m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_PASS
+                  name: pterodactyl-secret
+            - name: DB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_DB
+                  name: pterodactyl-secret
+            - name: APP_ENV
+              value: "production"
+            - name: APP_ENVIRONMENT_ONLY
+              value: "false"
+            - name: CACHE_DRIVER
+              value: "redis"
+            - name: SESSION_DRIVER
+              value: "redis"
+            - name: QUEUE_DRIVER
+              value: "redis"
+            - name: REDIS_HOST
+              value: "redis.default.svc.cluster.local" # redis server ip or dns
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: redis-password
+                  name: redis
+                  namespace: default
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  key: POSTGRES_HOST
+                  name: pterodactyl-secret
+            - name: DB_PORT
+              value: "5432"
+            - name: APP_URL
+              value: "https://pterodactyl.${SECRET_DOMAIN}" # url of server panel
+            - name: APP_TIMEZONE
+              value: "Europe/Warsaw"
+            - name: APP_SERVICE_AUTHOR
+              value: "${SECRET_CLOUDFLARE_EMAIL}"
+            - name: TRUSTED_PROXIES
+              value: "*" # restrict this to your proxy ip
+          volumeMounts:
+            - mountPath: /app/var/
+              name: pterodactyl-app-content
+            - mountPath: /etc/nginx/http.d/
+              name: pterodactyl-nginx-content
+            - mountPath: /etc/letsencrypt/
+              name: pterodactyl-le-content
+            - mountPath: /app/storage/logs
+              name: pterodactyl-logs-content
+      volumes:
+        - name: pterodactyl-app-content
+          persistentVolumeClaim:
+            claimName: pterodactyl-app-claim
+        - name: pterodactyl-nginx-content
+          persistentVolumeClaim:
+            claimName: pterodactyl-nginx-claim
+        - name: pterodactyl-le-content
+          persistentVolumeClaim:
+            claimName: pterodactyl-le-claim
+        - name: pterodactyl-logs-content
+          persistentVolumeClaim:
+            claimName: pterodactyl-logs-claim
+      initContainers:
+        - name: init-db
+          image: ghcr.io/onedr0p/postgres-initdb:14.6
+          envFrom:
+            - secretRef:
+                name: pterodactyl-secret
+                namespace: games

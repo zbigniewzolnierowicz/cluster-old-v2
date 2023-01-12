@@ -1,0 +1,63 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pterodactyl-app-claim
+  labels:
+    snapshot.home.arpa/enabled: "true"
+  namespace: games
+spec:
+  storageClassName: openebs-jiva-csi-default
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pterodactyl-nginx-claim
+  labels:
+    snapshot.home.arpa/enabled: "true"
+  namespace: games
+spec:
+  storageClassName: openebs-jiva-csi-default
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pterodactyl-le-claim
+  labels:
+    snapshot.home.arpa/enabled: "true"
+  namespace: games
+spec:
+  storageClassName: openebs-jiva-csi-default
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pterodactyl-logs-claim
+  labels:
+    snapshot.home.arpa/enabled: "true"
+  namespace: games
+spec:
+  storageClassName: openebs-jiva-csi-default
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
