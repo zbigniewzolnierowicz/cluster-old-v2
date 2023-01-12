@@ -1,8 +1,9 @@
 ---
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: pterodactyl-ingress
+  name: pterodactyl
+  namespace: games
   annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: "letsencrypt-production"
@@ -10,11 +11,15 @@ metadata:
     external-dns/is-public: "true"
     hajimari.io/enable: "true"
 spec:
-  entryPoints:
-    - websecure
-  routes:
-    - match: Host(`pterodactyl.${SECRET_DOMAIN}`) # ip of your game panel
-      kind: Rule
-      services:
-        - name: pterodactyl
-          port: 80
+  ingressClassName: nginx
+  rules:
+    - host: pterodactyl.${SECRET_DOMAIN}
+      http:
+        paths:
+          - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: pterodactyl
+            port:
+              number: 80

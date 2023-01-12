@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.2.0
+      version: 1.2.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -24,7 +24,7 @@ spec:
   values:
     image:
       repository: ghcr.io/onedr0p/sonarr-develop
-      tag: 4.0.0.295@sha256:e280380bc4fc99d400e81776d37f3f9619e8f075f1b327d042d92e222d98a8f1
+      tag: 4.0.0.340@sha256:650ed7ea017852267453fbb74cc81dfb01a90f8559744f505e73f08fa1b4afd8
     env:
       TZ: "${TIMEZONE}"
       SONARR__INSTANCE_NAME: Sonarr
