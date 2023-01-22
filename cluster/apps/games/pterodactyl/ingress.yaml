@@ -16,10 +16,27 @@ spec:
     - host: pterodactyl.${SECRET_DOMAIN}
       http:
         paths:
-          - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: pterodactyl
-            port:
-              number: 80
+          - backend:
+              service:
+                name: pterodactyl
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - pterodactyl.${SECRET_DOMAIN}
+      secretName: pterodactyl-tls
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: pterodactyl-tls
+  namespace: games
+spec:
+  dnsNames:
+    - pterodactyl.${SECRET_DOMAIN}
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-production
+  secretName: plex-tls
