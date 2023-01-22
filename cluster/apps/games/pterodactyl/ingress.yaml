@@ -11,7 +11,6 @@ metadata:
     external-dns/is-public: "true"
     hajimari.io/enable: "true"
 spec:
-  ingressClassName: nginx
   rules:
     - host: pterodactyl.${SECRET_DOMAIN}
       http:
