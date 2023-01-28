@@ -18,27 +18,36 @@ spec:
           containers:
             - name: recyclarr-sonarr
               image: ghcr.io/recyclarr/recyclarr
-              command: ["recyclarr", "sonarr", "--config", "/app/recyclarr.yaml"]
+              command: ["recyclarr", "sync", "sonarr", "--config", "/app/sonarr.yaml"]
               volumeMounts:
-                - name: recyclarr-config
-                  mountPath: /app/recyclarr.yaml
-                  subPath: recyclarr.yaml
+                - name: sonarr-config
+                  mountPath: /app/sonarr.yaml
+                  subPath: sonarr.yaml
                   readOnly: true
             - name: recyclarr-radarr
               image: ghcr.io/recyclarr/recyclarr
-              command: ["recyclarr", "radarr", "--config", "/app/recyclarr.yaml"]
+              command: ["recyclarr", "sync", "radarr", "--config", "/app/radarr.yaml"]
               volumeMounts:
-                - name: recyclarr-config
-                  mountPath: /app/recyclarr.yaml
-                  subPath: recyclarr.yaml
+                - name: radarr-config
+                  mountPath: /app/radarr.yaml
+                  subPath: radarr.yaml
                   readOnly: true
           volumes:
-            - name: recyclarr-config
+            - name: sonarr-config
               projected:
                 defaultMode: 0775
                 sources:
                   - secret:
                       name: recyclarr
                       items:
-                        - key: recyclarr.yaml
-                          path: recyclarr.yaml
+                        - key: sonarr.yaml
+                          path: sonarr.yaml
+            - name: radarr-config
+              projected:
+                defaultMode: 0775
+                sources:
+                  - secret:
+                      name: recyclarr
+                      items:
+                        - key: radarr.yaml
+                          path: radarr.yaml

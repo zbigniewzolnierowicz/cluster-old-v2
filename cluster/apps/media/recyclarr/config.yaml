@@ -5,16 +5,16 @@ metadata:
   name: recyclarr
   namespace: media
 type: Opaque
-
 stringData:
-  recyclarr.yaml: |-
+  sonarr.yaml: |-
     ---
     # yaml-language-server: $schema=https://raw.githubusercontent.com/recyclarr/recyclarr/master/schemas/config-schema.json
     sonarr:
-      - base_url: 'http://sonarr:80'
+      anime:
+        base_url: 'http://sonarr:80'
         api_key: '${SECRET_SONARR_API_KEY}'
         quality_definition:
-          type: hybrid
+          type: anime
         custom_formats:
           - trash_ids:
               - 949c16fe0a8147f50ba82cc2df9411c9 # Anime BD Tier 01 (Top SeaDex Muxers)
@@ -34,7 +34,8 @@ stringData:
               - 25d2afecab632b1582eaf03b63055f72 # Anime BD Tier 06 (FanSubs)
               - c27f2ae6a4e82373b0f1da094e2489ad # Anime Web Tier 03 (Official Subs)
               - 30feba9da3030c5ed1e0f7d610bcadc4 # Anime BD Tier 04 (SeaDex Muxers)
-      - base_url: 'http://sonarr:80'
+      tv:
+        base_url: 'http://sonarr:80'
         api_key: '${SECRET_SONARR_API_KEY}'
         quality_definition:
           type: series
@@ -58,9 +59,11 @@ stringData:
               - d34870697c9db575f17700212167be23 # NF
               - a880d6abc21e7c16884f3ae393f84179 # HMAX
               - 36b72f59f4ea20aad9316f475f2d9fbb # DCU
-
+  radarr.yaml: |-
+    ---
     radarr:
-      - base_url: 'http://radarr:80'
+      main:
+        base_url: 'http://radarr:80'
         api_key: '${SECRET_RADARR_API_KEY}'
         quality_definition:
           type: movie
