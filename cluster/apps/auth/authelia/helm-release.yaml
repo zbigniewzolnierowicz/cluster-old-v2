@@ -37,7 +37,7 @@ spec:
       tag: 4.37.5
     initContainers:
       init-db:
-        image: ghcr.io/onedr0p/postgres-initdb:14.6
+        image: ghcr.io/onedr0p/postgres-initdb:14.7
         env:
           - name: POSTGRES_HOST
             value: postgres-rw.default.svc.cluster.local
