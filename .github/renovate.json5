@@ -89,6 +89,12 @@
       "automerge": true
     },
     {
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["digest"],
+      "labels": ["renovate/image", "dep/digest"],
+      "automerge": true
+    },
+    {
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["major"],
       "labels": ["renovate/helm", "dep/major"]
@@ -103,6 +109,12 @@
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["patch"],
       "labels": ["renovate/helm", "dep/patch"],
+      "automerge": true
+    },
+    {
+      "matchDatasources": ["helm"],
+      "matchUpdateTypes": ["digest"],
+      "labels": ["renovate/helm", "dep/digest"],
       "automerge": true
     },
     {
