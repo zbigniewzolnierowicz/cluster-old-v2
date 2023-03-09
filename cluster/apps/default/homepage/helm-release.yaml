@@ -27,7 +27,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: ghcr.io/zbigniewzolnierowicz/home
-      tag: "0.1.0"
+      tag: "0.1.1"
     service:
       main:
         ports:
