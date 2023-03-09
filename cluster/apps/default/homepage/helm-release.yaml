@@ -26,13 +26,13 @@ spec:
       replicas: 3
       strategy: RollingUpdate
     image:
-      repository: ghcr.io/zbigniewzolnierowicz/homepage
-      tag: "202302162322"
+      repository: ghcr.io/zbigniewzolnierowicz/home
+      tag: "0.0.1"
     service:
       main:
         ports:
           http:
-            port: &port 3000
+            port: &port 80
     probes:
       liveness: &probes
         enabled: true
