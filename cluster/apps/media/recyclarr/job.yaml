@@ -14,9 +14,13 @@ spec:
       ttlSecondsAfterFinished: 300
       template:
         spec:
+          securityContext:
+            runAsNonRoot: true
           restartPolicy: Never
           containers:
             - name: recyclarr-sonarr
+              securityContext:
+                allowPrivilegeEscalation: false
               image: ghcr.io/recyclarr/recyclarr
               command: ["recyclarr", "sync", "sonarr", "--config", "/app/sonarr.yaml"]
               volumeMounts:
@@ -25,6 +29,8 @@ spec:
                   subPath: sonarr.yaml
                   readOnly: true
             - name: recyclarr-radarr
+              securityContext:
+                allowPrivilegeEscalation: false
               image: ghcr.io/recyclarr/recyclarr
               command: ["recyclarr", "sync", "radarr", "--config", "/app/radarr.yaml"]
               volumeMounts:

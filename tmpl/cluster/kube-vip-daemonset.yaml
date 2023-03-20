@@ -18,6 +18,8 @@ spec:
         app.kubernetes.io/instance: kube-vip
         app.kubernetes.io/name: kube-vip
     spec:
+      securityContext:
+        runAsNonRoot: true
       containers:
         - name: kube-vip
           image: ghcr.io/kube-vip/kube-vip:v0.5.11
@@ -48,6 +50,7 @@ spec:
             - name: address
               value: "${BOOTSTRAP_KUBE_VIP_ADDR}"
           securityContext:
+            allowPrivilegeEscalation: false
             capabilities:
               add:
                 - NET_ADMIN

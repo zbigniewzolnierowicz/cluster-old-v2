@@ -15,9 +15,13 @@ spec:
       ttlSecondsAfterFinished: 300
       template:
         spec:
+          securityContext:
+            runAsNonRoot: true
           restartPolicy: Never
           containers:
             - name: cloudflare-ddns
+              securityContext:
+                allowPrivilegeEscalation: false
               image: ghcr.io/onedr0p/kubernetes-kubectl:1.26.2
               envFrom:
                 - secretRef:

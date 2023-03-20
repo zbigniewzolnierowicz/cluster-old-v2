@@ -18,8 +18,12 @@ spec:
       labels:
         app: pterodactyl
     spec:
+      securityContext:
+        runAsNonRoot: true
       containers:
         - name: pterodactyl
+          securityContext:
+            allowPrivilegeEscalation: false
           image: ghcr.io/pterodactyl/panel:latest
           resources:
             requests:
