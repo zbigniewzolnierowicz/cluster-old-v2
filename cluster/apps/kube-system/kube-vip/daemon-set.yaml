@@ -22,7 +22,7 @@ spec:
         runAsNonRoot: true
       containers:
         - name: kube-vip
-          image: ghcr.io/kube-vip/kube-vip:v0.5.11
+          image: ghcr.io/kube-vip/kube-vip:v0.5.12
           imagePullPolicy: IfNotPresent
           args:
             - manager
