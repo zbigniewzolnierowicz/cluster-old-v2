@@ -18,3 +18,4 @@ resources:
   - democratic-csi.yaml
   - cnpg.yaml
   - openebs.yaml
+  - oauth2-proxy.yaml
