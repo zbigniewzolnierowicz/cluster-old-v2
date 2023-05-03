@@ -25,9 +25,8 @@ spec:
     backupStorageLocation:
       - name: default
         default: true
-        provider: aws
-        bucket: velero
-        accessMode: ReadWrite
+        provider: "aws"
+        bucket: "velero"
         credential:
           name: velero-secret
           key: minio
