@@ -22,20 +22,15 @@ spec:
     remediation:
       retries: 5
   values:
-    initContainers:
-      - name: velero-plugin-for-aws
-        image: velero/velero-plugin-for-aws:v1.7.0@sha256:91b0be561037f3b6420ace15536996afed5bd0fba537f7ab8e171587977cdc83
-        imagePullPolicy: IfNotPresent
-        volumeMounts:
-          - mountPath: /target
-            name: plugins
+    fullnameOverride: velero
     configuration:
-      provider: "aws"
+      extraEnvVars:
+        TZ: "${TIMEZONE}"
       backupStorageLocation:
         - name: default
           default: true
           bucket: "velero"
-          provider: "aws"
+          provider: aws
           credential:
             name: velero-secret
             key: minio
@@ -44,12 +39,33 @@ spec:
             s3ForcePathStyle: true
             s3Url: "http://${SECRET_NAS_ADDR}:9000"
             publicUrl: "http://${SECRET_NAS_ADDR}:9000"
+      resticTimeout: 6h
+    initContainers:
+      - name: velero-plugin-for-aws
+        image: velero/velero-plugin-for-aws:v1.7.0@sha256:91b0be561037f3b6420ace15536996afed5bd0fba537f7ab8e171587977cdc83
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - mountPath: /target
+            name: plugins
+    snapshotsEnabled: true
+    deployNodeAgent: true
+    upgradeCRDs: true
+    nodeAgent:
+      podVolumePath: /var/lib/kubelet/pods
+      privileged: false
+      resources:
+        requests:
+          memory: 200Mi
+          cpu: 15m
+        limits:
+          memory: 3000Mi
+          cpu: null
     schedules:
       daily-backup:
         schedule: "0 6 * * *"
         template:
+          ttl: "720h"
           storageLocation: default
-          ttl: "120h"
     resources:
       requests:
         cpu: 100m
