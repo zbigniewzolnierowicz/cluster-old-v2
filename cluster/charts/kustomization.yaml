@@ -19,3 +19,4 @@ resources:
   - cnpg.yaml
   - openebs.yaml
   - oauth2-proxy.yaml
+  - vmware-tanzu.yaml

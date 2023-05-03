@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: velero-secret
+    namespace: flux-system
+stringData:
+    minio: ENC[AES256_GCM,data:arJ2d8PaaIGs5h1OLDQ8IjM7KyeAd7H+xi5+/D217YoSMH3X3QVU/sl2kiLhNd+3YASa2R7z7kezM3WVf6fYabzN2mExo0IvLQxDqozu/FpMdFgTvmaYKA==,iv:tZxS1rEmH+iTfqWBLMgOKMzzcKq8k3pn6z2Hycg3Liw=,tag:ngp6HQ74Koi0Lbfvdv2lwA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1a3n0nnyg97hethp49t7a07xk2dty4j2g4pqr6gvzhx3esrvx3f4qqmk0tc
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA3a0I0VXRwekNPejUwcjVk
+            TmVFbFgxMXpNMUZwSHRZamRQRzNEUEZZdFRNCkR2enJ3L01DeStOK1lzVmdZWDUw
+            UDA0MGd1QitmSC84S0F3enNnY3VKdk0KLS0tIEd6UVppQkJPb3ZhZFZWL1RybzdY
+            SmlyTkt4ZktOc0dqcnhuQnBRQ3JOTWcKgC9D2RSdHE4JUwZcDSxl6m19HKBTlxIv
+            NArG8pEOGlZ9hPgWh26LlnJsL45ORF7h3XNjJPfSbvhaIlz5LJn7/w==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-05-03T17:24:23Z"
+    mac: ENC[AES256_GCM,data:ESF9tY384n5OH2VQ6ZfngkaPDN3VJzMTrg57raqXoxpjnv/3OeOHdwq80eMh+WZcnFbYqE+qviXxU6ysHgg89tLiOPZU76zfDv4ZoAzRaneAXz+7wXoFfVOE7CQSa/jBGOhl4oiRPghDuA8itThLVGQCr9COE5/PTMzfDc1NY5o=,iv:YahKo4EopVcrBPUaPrwShdgCyihka3cnwnGY4oj8yKo=,tag:qooWbpYGP0OCEhx2bxZA0Q==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.7.3

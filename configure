@@ -60,6 +60,14 @@ main() {
             > "${PROJECT_DIR}/cluster/apps/networking/external-dns/secret.sops.yaml"
         envsubst < "${PROJECT_DIR}/tmpl/cluster/notifications-url.sops.yaml" \
             > "${PROJECT_DIR}/cluster/core/notifications/notifications-url.sops.yaml"
+
+        # velero
+        envsubst < "${PROJECT_DIR}/tmpl/cluster/velero-creds.sops.yaml" \
+            > "${PROJECT_DIR}/cluster/core/storage/velero/velero-creds.sops.yaml"
+        envsubst < "${PROJECT_DIR}/tmpl/.s3credentials.ini" \
+            > "${PROJECT_DIR}/.s3credentials.ini"
+        sops --encrypt --in-place "${PROJECT_DIR}/cluster/core/storage/velero/velero-creds.sops.yaml"
+
         # encrypt cluster secrets
         sops --encrypt --in-place "${PROJECT_DIR}/cluster/config/cluster-secrets.sops.yaml"
         sops --encrypt --in-place "${PROJECT_DIR}/cluster/core/cluster-issuers/secret.sops.yaml"
