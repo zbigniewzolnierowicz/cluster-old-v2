@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: velero-secret
-  namespace: flux-system
+  namespace: storage
 stringData:
   minio: |
     [default]
