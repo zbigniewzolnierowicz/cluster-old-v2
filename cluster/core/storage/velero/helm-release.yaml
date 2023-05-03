@@ -47,7 +47,7 @@ spec:
         volumeMounts:
           - mountPath: /target
             name: plugins
-    snapshotsEnabled: true
+    snapshotsEnabled: false
     deployNodeAgent: true
     upgradeCRDs: true
     nodeAgent:
