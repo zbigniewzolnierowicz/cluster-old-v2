@@ -76,7 +76,8 @@ spec:
         - 44
         - 109
         - 65539
-
+    podAnnotations:
+      backup.velero.io/backup-volumes: config
     resources:
       requests:
         cpu: 100m
