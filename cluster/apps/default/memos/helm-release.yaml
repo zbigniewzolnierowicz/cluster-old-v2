@@ -36,11 +36,7 @@ spec:
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           external-dns/is-public: "true"
           hajimari.io/enable: "true"
-          hajimari.io/icon: "television"
-          nginx.ingress.kubernetes.io/configuration-snippet: |
-            proxy_set_header Accept-Encoding "";
-            sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.dev/css/base/sonarr/sonarr-base.css"><link rel="stylesheet" type="text/css" href="https://themepark.catppuccin.com/mocha.css"></head>';
-            sub_filter_once on;
+          hajimari.io/icon: "note-multiple"
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
