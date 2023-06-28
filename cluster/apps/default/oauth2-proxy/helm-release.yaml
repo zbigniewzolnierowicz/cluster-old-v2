@@ -39,6 +39,10 @@ spec:
       cookieSecret: ${SECRET_OAUTH2_PROXY_COOKIE_SECRET}
       clientID: ${SECRET_OAUTH2_PROXY_GOOGLE_CLIENT_ID}
       clientSecret: ${SECRET_OAUTH2_PROXY_GOOGLE_CLIENT_SECRET}
+    authenticatedEmailsFile:
+      enabled: true
+      restricted_access: |-
+        ${SECRET_CLOUDFLARE_EMAIL}
     extraArgs:
       provider: google
       whitelist-domain: ".${SECRET_DOMAIN}"
